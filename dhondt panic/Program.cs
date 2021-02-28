@@ -19,7 +19,8 @@ namespace dhondt_panic
                 return;
             }
 
-            Console.WriteLine($"Path = {args[0]}");          
+            var engine = new VoteProcessor(args[0]);
+       
         }
     }
 }
