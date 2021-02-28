@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "dhondt panic": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\Rhiannon\\source\\repos\\dhondt panic\\dhondt panic\\test data\\Assessment1Data.txt\""
+    }
+  }
+}
