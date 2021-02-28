@@ -20,6 +20,10 @@ namespace dhondt_panic
             }
 
             var engine = new VoteProcessor(args[0]);
+            if (!engine.LoadFile())
+            {
+                Console.Error.WriteLine($"Failed to load file: {args[0]}");
+            }
        
         }
     }
