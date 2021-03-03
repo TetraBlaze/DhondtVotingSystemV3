@@ -19,12 +19,19 @@ namespace dhondt_panic
                 return;
             }
 
-            var engine = new VoteProcessor(args[0]);
-            if (!engine.LoadFile())
+            try
             {
-                Console.Error.WriteLine($"Failed to load file: {args[0]}");
+                var engine = new VoteProcessor(args[0]);
+                engine.LoadData();
+                Console.WriteLine($"File title: {engine.FileTitle}");
+                Console.WriteLine($"Seats: {engine.NumberOfSeats}, total votes: {engine.TotalVotes}");
             }
-       
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Failed to process file: {args[0]}");
+                Console.Error.WriteLine(ex.Message);
+            }
+
         }
     }
 }
