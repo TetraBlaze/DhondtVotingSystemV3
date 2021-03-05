@@ -22,9 +22,14 @@ namespace dhondt_panic
             try
             {
                 var engine = new VoteProcessor(args[0]);
-                engine.LoadData();
+                engine.LoadData(); 
                 Console.WriteLine($"File title: {engine.FileTitle}");
                 Console.WriteLine($"Seats: {engine.NumberOfSeats}, total votes: {engine.TotalVotes}");
+                foreach( var seat in engine.ProcessVotes())
+                {
+                    Console.WriteLine($"Awarded seat = {seat}");
+                }
+               
             }
             catch (Exception ex)
             {

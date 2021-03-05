@@ -32,7 +32,7 @@ namespace dhondt_panic
 
         #endregion
 
-        #region properties
+        #region Properties
 
         /// <summary>
         /// Title of the file
@@ -116,7 +116,23 @@ namespace dhondt_panic
             {
                 throw new InvalidOperationException($"Total votes in header ({TotalVotes}) does not match total of party votes({totalPartyVotes})");
             }
+        }
 
+        /// <summary>
+        /// Process the votes and return list of selected seats.
+        /// </summary>
+        /// <returns>Seats selected by the voting.</returns>
+        public IEnumerable<string> ProcessVotes()
+        {
+            int seatCount = 0;
+            while(seatCount < NumberOfSeats)
+            {
+                var mostVotes = _partyList.OrderByDescending(p => p.TotalVotes).First();
+                if (mostVotes.TotalVotes == 0)
+                    break;
+                seatCount++;
+                yield return mostVotes.TakeNextSeat();
+            }
         }
 
         #endregion

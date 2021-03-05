@@ -9,6 +9,12 @@ namespace dhondt_panic
     /// </summary>
     public class PartyVotes
     {
+        #region members
+
+        private int _totalVotes;
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -36,16 +42,21 @@ namespace dhondt_panic
         /// <summary>
         /// Total number of votes for the party
         /// </summary>
-        public int TotalVotes { get; private set; }
+        public int TotalVotes
+        {
+            get => SeatIds.Count != 0 ? _totalVotes : 0;
+            set => _totalVotes = value;
+        }
 
         /// <summary>
         /// List of seat Ids
         /// </summary>
-        public IList<string> SeatIds => new List<string>();
+        public IList<string> SeatIds { get; } = new List<string>();
 
         #endregion
 
         #region Methods
+
         /// <summary>
         /// Add seat ID to <see cref="PartyVotes"/>
         /// </summary>
@@ -53,6 +64,21 @@ namespace dhondt_panic
         public void AddSeatId(string id)
         {
             SeatIds.Add(id);
+        }
+
+        /// <summary>
+        /// Take next seat from list and half the vote count.
+        /// </summary>
+        /// <returns>Next seat from the list</returns>
+        public string TakeNextSeat()
+        {
+            if (SeatIds.Count == 0)
+                throw new InvalidOperationException("No seats left");
+            TotalVotes /= 2;
+            //TODO: may be better to use a Queue<> for the list of seats? 
+            var seat = SeatIds[0];
+            SeatIds.RemoveAt(0);
+            return seat;
         }
 
         #endregion
